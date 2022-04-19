@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<head>
+    <h1>
+        <center>Angular'da Reactive Formlar </center>
+    </h1>
+
+    <style>
+        body {
+            margin-top: 50px;
+            margin-bottom: 150px;
+            margin-right: 200px;
+            margin-left: 200px;
+            background-color: Cornsilk;
+            font-size: 130%;
+        }
+        
+        h1 {
+            color: red;
+        }
+        
+        #yaziboyutu {
+            font-size: 125px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <big>
+        
+        <h2>Reactive Forms Nedir?</h2>
+        <p>Reactive forms kullanıcı ile etkileşime girip bilgi alabilen, form üzerinde yapılan tüm değişiklikleri takip edip yönetmemizi sağlayan bir form türüdür. Form içindeki tüm kontrollerde (input, text-area, combobox vb) yapılan tüm etkileşimleri dinler, yapılan değişiklikleri kontrol eder ve değişiklikleri formun durumuna(state) iletir. Form içinde bulunan kontrolleri(zorunluluk, uzunluk vb) yapar; data-model ile doğrudan erişimi olduğundan, yapılan değişiklikler de anında data-modele yansıtır.
+
+            <h3>Yapı Taşları</h3>
+
+        <hr><b><i><big>1) FormControl</big></i><br></b><br>Sayfada bulunan ilgili kontrolün(input, calender, checkbox vb); durumuna(valid, invalid), o anki değerine, varsa doğrulama(validations) işlemlerine ve kullanıcın kontrol üzerinde yapmış olduğu
+    eylemlere ulaşmamızı sağlayan mekanizmadır. Reactive Forms’un en küçük yapı taşıdır.
+
+    <br><br><br><b><i><big>FormControl Parametreleri</big></i></b>
+    <li><b>formState:</b></li>Konrol'ün başlangıç değeridir. Varsayılan Değeri null dır.
+    <li><b>validatorOrOpts:</b></li>üzerinde eş zamanlı doğrulama yapmasını sağlan parametredir. Birden çok doğrulama fonksiyonu dizi halinde parametreye verilebilir. Varsayılan değeri undefined dır.
+    <li><b>asyncValidator:</b></li>üzerinde eş zamanlı olmayan doğrulama için kullanılan parametredir. Birden çok doğrulama fonksiyonu dizi halinde parametreye verilebilir. Varsayılan değeri undefined dır.
+
+    <br><br><br><b><i><big>FormControl Metotları</big></i></b><br><br>
+    <li><b>setValue():</b></li>Kontrole Yeni değer eklemeyi sağlar.
+    <li><b>patchValue():</b></li>Kontroldeki değerinin tamını ve bir kısmını almayı sağlar.
+    <li><b>reset():</b></li>Kontrolu ilk haline geri döndürür. Değerini boşaltır, Durumunu "untcoudhed" yapar.
+    <li><b>registerOnChange():</b></li>Kontrolde olan değişikliler için bir listenter oluşturur. Ve kontrol'ün değeri değiştiğinde bu method tetiklenir.
+    <li><b>registerOnDisabledChange():</b></li>Kontrolde "disabled" olayı için listener oluşturur. Konrolün disabled durumu değiştiğinde tetiklenir.
+    <li><b>value:</b></li>Kontrolün değerini almak için kullanılır. <br><br>
+
+    <hr><br><b><i><big>2) FormGroup</big></i></b><br><br>FormControl’lerden oluşan kümedir. İçinde bulunan tüm kontrolleri; key (kontrolün adı) — value olarak bir arada tutar. Her bir kontrolün durumunu ayrı ayrı takip eder. Örneğin FormGroup’ta bulunan kontrollerden
+    birinin durumu hatalı(kullanıcı hatalı email adresi girmiş olabilir.) ise; FormGroup’un durumu da hatalı olarak ayarlanacaktır.
+
+    <br><br><br><b><i><big>FormGroup Parametreleri</big></i></b><br><br>
+    <li><b>controls:</b></li>İçinde bulunan kontrollerin koleksiyonudur. Herbir kontrol tanımlanırken kullanılan isimle ile key alanında tutulur.
+    <li><b>validatorOrOpts :</b></li>Kontrol üzerinde eş zamanlı doğrulama yapmasını sağlan parametredir. Birden çok doğrulama fonksiyonu dizi halinde parametreye verilebilir. Varsayılan değeri "undefined" dır.
+    <li><b>asyncValidator:</b></li>Kontrol üzerinde eş zamanlı olmayan doğrulama için kullanılan parametredir. Birden çok doğrulama fonksiyonu dizi halinde parametreye verilebilir. Varsayılan değeri "undefined" dır.
+
+    <br><br><br><b><i><big>FormGroup Metotları</big></i></b><br><br>
+    <li><b>registerControl():</b></li>FormGroup kontrol listesine yeni bir kontrol ekler. Eklenen kontrolün değerini veya validasyon işlemlerini güncellemez Bu işlemi yapmak için addControl() kullanılıar.
+    <li><b>addControl():</b></li>FormGroup'a yeni bir kontrol ekler.Eklenen kontrolün değerini veya validasyon işlemlerini günceller .
+    <li><b>removeControl():</b></li>FormGroup'tan belirtilen kontrolün kaldırılmasını sağlar.
+    <li><b>setControl():</b></li>FromGroup'ta var olan kontrolü yeni kontrolle değiştirir.
+    <li><b>contains():</b></li>FromGroup'ta ilgili kontrolün varlığını kontrol eder.
+    <li><b>setValue():</b></li>FromGroup'ın değerini değiştirir.
+    <li><b>patchValue() :</b></li>FromGroup'taki değerinin tamını ve bir kısmını almayı sağlar.
+    <li><b>reset():</b></li>Kontrolu ilk haline geri döndürür. Değerini boşaltır, Durumunu "untcoudhed" yapar.
+    <li><b>registerOnChange():</b></li>Kontrolde olan değişikliler için bir listenter oluşturur. Ve kontrol'ün değeri değiştiğinde bu method tetiklenir.
+    <li><b>registerOnDisabledChange():</b></li>Kontrolde "disabled" olayı için listener oluşturur. Konrolün disabled durumu değiştiğinde tetiklenir.
+    <li><b>value:</b></li>Kontrolün değerini almak için kullanılır. <br><br><br>
+
+    <hr><br><br><b><i><big>3) FormArray</big></i></b><br><br>İçinde FormControl ve/veya FormGroupları barındıran dizilerdir. Dizide bulunan tüm kontrollerde meydana gelen değişiklikleri takip eder. Eğer kontrollerden birinin durumu hatalı ise FormArray’in
+    durumu da hatalı olacaktır.
+
+    <br><br><br><b><i><big>FormArray Parametreleri</big></i></b><br><br>
+    <li><b>controls:</b></li>İçinde bulunan kontrollerin dizisidir. Dizideki elemanlar tekil index ile tutulur.
+    <li><b>validatorOrOpts:</b></li>Kontrol üzerinde eş zamanlı doğrulama yapmasını sağlan parametredir. Birden çok doğrulama fonksiyonu dizi halinde parametreye verilebilir. Varsayılan değeri "undefined" dır.
+    <li><b>asyncValidator:</b></li>Kontrol üzerinde eş zamanlı olmayan doğrulama için kullanılan parametredir. Birden çok doğrulama fonksiyonu dizi halinde parametreye verilebilir. Varsayılan değeri "undefined" dır.
+
+    <br><br><br><b><i><big>FormArray Metotları</big></i></b><br><br>
+    <li><b>at():</b></li>Belirtilen indexteki kontrolün bilgilerini getirir.
+    <li><b>push():</b></li>FormArray'in sonuna yeni bir kontrol ekler.
+    <li><b>insert():</b></li>Belirtilen index'e yeni bir kontrol ekler.
+    <li><b>removeAt():</b></li>Belirtilen intexteki kontrolü FormArraydan kaldırır.
+    <li><b>setControl():</b></li>FromGroup'ta var olan kontrolü yeni kontrolle değiştirir.
+    <li><b>contains():</b></li>FromGroup'ta ilgili kontrolün varlığını kontrol eder.
+    <li><b>setValue():</b></li>FromGroup'ın değerini değiştirir.
+    <li><b>patchValue():</b></li>FromGroup'taki değerinin tamını ve bir kısmını almayı sağlar.
+    <li><b>reset():</b></li>Kontrolu ilk haline geri döndürür. Değerini boşaltır, Durumunu "untcoudhed" yapar.
+    <li><b>registerOnChange():</b></li>Kontrolde olan değişikliler için bir listenter oluşturur. Ve kontrol'ün değeri değiştiğinde bu method tetiklenir.
+    <li><b>registerOnDisabledChange():</b></li>Kontrolde "disabled" olayı için listener oluşturur. Konrolün disabled durumu değiştiğinde tetiklenir.
+    <li><b>value:</b></li>Kontrolün değerini almak için kullanılır. <br><br><br>
+
+
+
+    <hr><br><br><b><i><big>4) FormBuilder</big></i></b><br>
+    <br>Kullanıcıların daha basit bir şekilde kompleks form(lar) oluşturmasını sağlayan servistir. “FromControl, FormGroup ve FormArray” lerini kısa yoldan oluşturulmasını sağlar. <br><br>Yukarıda açıklamasını yapmaya çalıştığım kavramların kullanımı
+    ile ilgili örneklere geçelim.<br><br>
+    <hr>
+    <br><b> Örnek-1:</b> FormControl’ün kullanımı ile ilgili örnek. “basic-component .ts” ve “basic.component.html” dosyalarını açıp aşağıdaki işlemleri yapıyoruz. <br> <br>
+
+    <div align=" center">
+        <img src="Ekran görüntüsü 2022-04-19 211529.png" width=" 450 " height="350 ">
+    </div>
+
+    <br> Yukarıdaki kod bloğunda ikinci satırda “adSoyad” değişkeni ile FormControl yaratıyoruz. Kullanıcı ekranda bulunan “Varsayılan İsmi Yazı” butonuna bastıktan sonra “onSubmit()” metodu kontrole varsayılan değer yazmasını sağlar. FormControl’de bulunan
+    reset methodu ile ilgili kontrol başlangıç durumuna getirilir. <br> <br>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 211655.png" height="320 ">
+    </div>
+
+    <br>Yaratılan kontrolün ekranda görüntülenmesi ve yapılan işlemlerin takip edilmesi için basic.component.html dosyasındaki input kontrolüne [formControl]=”adSoyad” yazıyoruz(yedinci satır). Ekranda kullanıcının girmiş olduğu değeri göstermek için
+    on ikinci satıra {{adSoyad.Value}} ekliyoruz. <br> Bu işlemler tamamlandıktan sonra ng serve ile projeyi çalıştırıyoruz. <br> <br>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 212024.png">
+    </div> <br> Ad soyada atanan değer Naciye ZorluKaya olduğu için işleme devam ettiğimizde isim bizim atadığımız değere dönüyor.<br> <br>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 212107.png">
+    </div>
+
+    <hr> <br><b>Örnek-2:</b> FormGroup kullanımı ile ilgili örnek. “group.component.ts” ve “group.component.html” dosyalarını açıp aşağıdaki işlemleri yapıyoruz.<br> <br>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 212624.png" width="500 " height="450 ">
+    </div>
+
+    <br>Yukarıdaki kod bloğunda; ikinci satırda “kisiForm” değişkeni ile FromGroup yaratıyoruz ve FormGroup içine de ekranda görüntülenecek kontrolleri ekliyoruz. Bu işlemin sonunda FromGroup’un içinde bulunan tüm kontroller için aynı özelliklere (value,
+    untouched vb)ve metodlara (setValue(), reset() vb) olacak şekilde instance’ları yaratılır. Dokuzuncu satırda KisiBilgisi modelinden kisi değişkeni tanımlıyoruz. Burada dikkat edilecek nokta modelde bulunan değişkenler ile FormGroup’ta bulunan FormController
+    aynı isimde olmalı. Aksi durumda formda yapılan değişiklikler data-modele istenilen şekilde aktarılmayacaktır. On ikinci satırda formda yapılan değişiklikleri “kisi” değişkenine atıyoruz. <br> <br>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 212839.png" height="700 ">
+    </div>
+
+    <br>Üçüncü satırda form tag’ine [formGroup]=”kisiForm” yazarak form tag’ini grupluyoruz. Kaydet butonuna bastıktan sonra kayıt işlemlerinin yapılabilmesi için form tag’ine (ngSubmit)=”onSubmit()” yazıyoruz. Formda bulunan kontrollere formControlName
+    özelliğine FormGroup’taki kontrolün adını yazarak FromGroup ile formdaki kontrolleri ilişkilendiriyoruz. Örneğin Sekizinci satırda bulunan Adı soyadı kontrolü ile FormGroup’taki adi kontrolünü formControlName=”adi” yazarak ilişkilendiriyoruz. Diğer
+    kontroller içinde benzer işlemleri yapıyoruz. Kullanıcı kaydet butona bastıktan sonra girilen değerlerin ekranda görüntülenmesi için {{kisi|json}} (Otuz ikinci satır) yazıyoruz.
+    <br>Bu işlemler tamamlandıktan sonra ng serve ile projeyi çalıştırıyoruz. <br> <br>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 213043.png">
+    </div> <br>
+    <hr>
+
+    <br> <b>Örnek-3:</b> İç içe FormGroup kullanımı ile ilgili örnek. “nested-group.component.ts” ve “nested-group.component.html” dosyalarını açıp aşağıdaki işlemleri yapıyoruz. <br> <br>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 214018.png">
+    </div>
+
+    <br> Yukarıdaki kod bloğunun ikinci satırında “kisiForm” değişkeni ile kontrolleri olacak şekilde bir FromGroup yaratıyoruz. Beşinci satırda “iletisim” adında FormGroup ve içinde bulunacak kontrolleri tanımlıyoruz. On ikinci satırda “Kisi” modelinden
+    kisi nesnesi oluşturuyoruz. ve on beşinci satırda kisiFormdan gelen bilgileri bu nesnenin içinde tutuyoruz. On beş ve on altıncı satırda formdan gelen değerleri Kisi ve Iletisim modeline dönüştürüyoruz. On dokuzuncu satırda bulunan iletisiBilgileri
+    metodu formda sadece “adı” ve “telefon” bilgisine varsayılan değer atıyor. <br> <br>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 221905.png">
+    </div>
+
+    <br>Üçüncü satırda form tag’ine [formGroup]=”kisiForm” yazarak form tag’ini grupluyoruz. Yirmi ikinci satırda div tagına formGroupName=”iletisim” yazarak “kisiForm” FormGroup’un içinde bulunan “iletisim” FormGroup’una ulaşıyoruz. “kisiForm” ‘da bulunan
+    tüm kontrolleri html dosyasında ilişkilendirdikten sonra <b>ng serve ile proje çalıştırıyoruz.</b> <br> <br>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 222045.png">
+    </div> <br>
+    <center>Email ve Cep Telefonu FormGroup bilgisi mavi kenarlıkla gösterilmiştir</center>
+    <hr>
+
+    <br><b>Örnek-4:</b> FormBuilder, FormArray ve Validasyon işlemleri ile ilgili örnek: “builder.component.ts” ve “builder.component.html” dosyalarını açıp aşağıdaki işlemleri yapıyoruz.<br> <br>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 222356.png">
+    </div>
+
+    <br> On yedinci Satırda “FormBuilder” servisini inject ediyoruz. İkinci satırda “kisiForm”unu bu servisi kullanarak oluşturuyoruz. Onuncu satırda forma “hobiler” adında bir FormArray’i ekliyoruz. Yirmi sekizinci satırda kullanıcının “hobiler” FormArray’ine
+    yeni eleman ekleyebilmesini sağlıyoruz. On dokuzuncu satırda “kisiForm”un içinde bulunan “hobiler” FormArray’ine kullanıcının erişmesini sağlıyoruz. Bir önceki örnekte yaratılan form ile bu örnekte yaratılan formun kodlarına bakılırsa “FormsBuilder”
+    ile form yaratma işleminin kolay olduğu görülebilir.
+    <br> <br> <b>Validasyon işlemleri:</b> Üçüncü satırda “adi” kontrolünü zorunlu olması ve en az 5 uzunlukta girilmesi şeklinde kontroller (validasyons) ekliyoruz. Kullanıcı bu bilgileri istenildiği şekilde girmediği sürece “Kaydet” butonu aktif olmayacak.
+    <br><br>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 222729.png" width="1000 " height="750 ">
+    </div>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 222753.png" width="1000 " height="450 ">
+    </div>
+
+    <br> Otuz altıncı satırda formda bulunan “hobiler” dizisine ulaşıyoruz. Otuz yedinci satırda bu dizinin içindeki kontrolleri “*ngFor” ile oluşturup; dizideki değişkenler ile ilişkilendiriyoruz. Daha sonra <b>ng serve</b> ile proje çalıştırıyoruz.
+    <br> <br>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 223112.png" width="530" height="500px" align="left">
+    </div>
+
+    <div align=" center ">
+        <img src="Ekran görüntüsü 2022-04-19 223037.png" width="530" height="500px" align="right">
+    </div>
+    <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+    <center>İlgi alanı kısmı FormArray ve Form’da doğrulama yapılıyor...</center>
+
+    </p>
+    </big>
+</body>
+
+</html>
